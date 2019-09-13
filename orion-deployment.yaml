@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orion
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orion
+  template:
+    metadata:
+      labels:
+        app: orion
+    spec:
+      containers:
+      - name: orion
+        image: fiware/orion:2.2.0
+        ports:
+        - containerPort: 1026
+        args: ["-dbhost", "mongo-db"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orion
+spec:
+  selector:
+    app: orion
+  type: LoadBalancer
+  ports:
+  - port: 1026
+    protocol: TCP
+    targetPort: 1026

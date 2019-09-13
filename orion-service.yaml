@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.17.0 (a74acad)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: orion
+  name: orion
+spec:
+  type: LoadBalancer
+  externalIPs:
+  - EXTERNAL_IP
+  ports:
+  - name: "1026"
+    port: 1026
+    targetPort: 1026
+  selector:
+    io.kompose.service: orion
+status:
+  loadBalancer: {}

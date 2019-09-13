@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.17.0 (a74acad)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: quantumleap
+  name: quantumleap
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: quantumleap
+    spec:
+      containers:
+      - env:
+        - name: CRATE_HOST
+          value: crate-db
+        image: smartsdk/quantumleap:0.6.1
+        # livenessProbe:
+        #   exec:
+        #     command:
+        #     - curl --fail -s http://localhost:8668/v2/version || exit 1
+        name: fiware-quantumleap
+        ports:
+        - containerPort: 8668
+        resources: {}
+      hostname: quantumleap
+      restartPolicy: Always
+status: {}

@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.17.0 (a74acad)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: crate-db
+  name: crate-db
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: crate-db
+    spec:
+      containers:
+      - args:
+        - crate
+        - -Clicense.enterprise=false
+        - -Cauth.host_based.enabled=false
+        - -Ccluster.name=democluster
+        - -Chttp.cors.enabled=true
+        - -Chttp.cors.allow-origin=*
+        image: crate:3.1.2
+        name: db-crate
+        ports:
+        - containerPort: 4200
+        - containerPort: 4300
+        resources: {}
+        volumeMounts:
+        - mountPath: /data
+          name: crate-db
+      hostname: crate-db
+      restartPolicy: Always
+      volumes:
+      - name: crate-db
+        persistentVolumeClaim:
+          claimName: crate-db
+status: {}
