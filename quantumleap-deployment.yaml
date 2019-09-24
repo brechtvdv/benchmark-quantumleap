@@ -12,7 +12,7 @@ spec:
   replicas: 1
   selector:
      matchLabels:
-      io.kompose.service: crate-db
+      io.kompose.service: quantumleap
   strategy: {}
   template:
     metadata:
