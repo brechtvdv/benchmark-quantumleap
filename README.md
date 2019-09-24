@@ -35,7 +35,7 @@ Deploy
 kubectl apply -f deploy/1.8+/
 ```
 
-Verify
+Verify (takes one minute)
 ```
 kubectl get po -n kube-system |grep metrics
 ```
@@ -45,16 +45,25 @@ Check
 kubectl top pod --all-namespaces
 ```
 
+## Add table in CrateDB by creating subscription in Orion
+
+```
+./setup_subscription.sh
+```
+
 ## Load data in CrateDB
 
-First, go to KUBERNETES_IP:4200 and run following query:
+Go to <KUBERNETES_IP>:4200 and run query with the content from `test_data`.
 
-```
-
-```
+You can test if everything works by going to `http://localhost:8668/v2/entities/lora.343233384C377A18`
 
 ## Start client deployment that runs time series queries
 
 ```
+kubectl create -f ./setup_client.yaml
+```
 
+Scale up the client deployments
+```
+ kubectl scale deployment/client --replicas=10
 ```

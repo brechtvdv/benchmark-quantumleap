@@ -28,7 +28,7 @@ kubectl create -f ./mongo-db-service.yaml
 sleep 20
 
 kubectl create -f ./orion-deployment.yaml
-#kubectl create -f ./orion-service.yaml
+kubectl create -f ./orion-service.yaml
 kubectl create -f ./quantumleap-deployment.yaml
 kubectl create -f ./quantumleap-service.yaml
 
