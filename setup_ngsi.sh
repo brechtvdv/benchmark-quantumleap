@@ -16,7 +16,9 @@
 # INFO Kubernetes file "redis-deployment.yaml" created
 # INFO Kubernetes file "redisdata-persistentvolumeclaim.yaml" created
 
-kubectl delete daemonsets,replicasets,services,deployments,pods,rc --all
+kubectl delete daemonsets,replicasets,services,deployments,pods,rc,pvc,pv --all
+
+kubectl create -f ./persistent-volume.yaml
 
 kubectl create -f ./crate-db-deployment.yaml
 kubectl create -f ./crate-db-persistentvolumeclaim.yaml

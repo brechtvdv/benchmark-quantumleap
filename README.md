@@ -10,6 +10,7 @@ cd benchmark-quantumleap
 ## Setup kubernetes with full NGSI setup
 
 ```
+chmod +x *.sh
 ./fill-in-master-ip-address.sh
 ./setup_ngsi.sh
 ```
