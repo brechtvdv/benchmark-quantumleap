@@ -1,7 +1,7 @@
 #!/bin/bash
 
 curl -X POST \
-  http://localhost:1026/v2/subscriptions/ \
+  http://EXTERNAL_IP:1026/v2/subscriptions/ \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 59809db1-6950-4bd8-a877-efcadeca772b' \
   -H 'cache-control: no-cache' \
@@ -10,7 +10,8 @@ curl -X POST \
   "subject": {
     "entities": [
       {
-        "idPattern": ".*"
+        "idPattern": ".*",
+        "type": "Sensor"
       }
     ],
     "condition": {
@@ -21,7 +22,7 @@ curl -X POST \
   },
   "notification": {
     "http": {
-      "url": "http://quantumleap:8668/v2/notify"
+      "url": "http://EXTERNAL_IP:8668/v2/notify"
     },
     "attrs": [
       "value"
@@ -31,7 +32,7 @@ curl -X POST \
 }'
 
 curl -X POST \
-  http://localhost:1026/v2/entities/ \
+  http://EXTERNAL_IP:1026/v2/entities/ \
   -H 'Accept: */*' \
   -H 'Accept-Encoding: gzip, deflate' \
   -H 'Cache-Control: no-cache' \
