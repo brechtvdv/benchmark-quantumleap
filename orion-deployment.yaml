@@ -18,16 +18,3 @@ spec:
         ports:
         - containerPort: 1026
         args: ["-dbhost", "mongo-db"]
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: orion
-spec:
-  selector:
-    app: orion
-  type: LoadBalancer
-  ports:
-  - port: 1026
-    protocol: TCP
-    targetPort: 1026
