@@ -6,11 +6,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: orion
+      io.kompose.service: orion
   template:
     metadata:
       labels:
-        app: orion
+        io.kompose.service: orion
     spec:
       containers:
       - name: orion
