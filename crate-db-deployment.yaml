@@ -35,13 +35,13 @@ spec:
         - containerPort: 4200
         - containerPort: 4300
         resources: {}
-        volumeMounts:
-        - mountPath: /data
-          name: crate-db
+        # volumeMounts:
+        # - mountPath: /data
+        #   name: crate-db
       hostname: crate-db
       restartPolicy: Always
-      volumes:
-      - name: crate-db
-        persistentVolumeClaim:
-          claimName: crate-db
+      # volumes:
+      # - name: crate-db
+      #   persistentVolumeClaim:
+      #     claimName: crate-db
 status: {}

@@ -18,13 +18,13 @@
 
 kubectl delete daemonsets,replicasets,services,deployments,pods,rc,pvc,pv --all
 
-kubectl create -f ./persistent-volume.yaml
+# kubectl create -f ./persistent-volume.yaml
 
 kubectl create -f ./crate-db-deployment.yaml
-kubectl create -f ./crate-db-persistentvolumeclaim.yaml
+# kubectl create -f ./crate-db-persistentvolumeclaim.yaml
 kubectl create -f ./crate-db-service.yaml
 kubectl create -f ./mongo-db-deployment.yaml
-kubectl create -f ./mongo-db-persistentvolumeclaim.yaml
+# kubectl create -f ./mongo-db-persistentvolumeclaim.yaml
 kubectl create -f ./mongo-db-service.yaml
 
 sleep 20
