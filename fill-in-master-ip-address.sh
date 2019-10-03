@@ -4,8 +4,8 @@
 KUBE_MASTER_IP=$(kubectl cluster-info | head -n 1 | egrep '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' -o --color=never)
 if [ "$KUBE_MASTER_IP" == "" ]; then
 	# Remove externalIP config
-	sed --in-place "s/- EXTERNAL_IP//g" *.y*
+	sed --in-place "s/- EXTERNAL_IP//g" *.y* setup_ingest.js
 else 
 	echo "Kubernetes master's IP address is ${KUBE_MASTER_IP}"
-	sed --in-place "s/EXTERNAL_IP/${KUBE_MASTER_IP}/g" *.y* setup_subscription.sh
+	sed --in-place "s/EXTERNAL_IP/${KUBE_MASTER_IP}/g" *.y* setup_subscription.sh setup_ingest.js
 fi

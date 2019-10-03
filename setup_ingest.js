@@ -3,7 +3,7 @@ const https = require('http')
 const data = '80';
 
 const options = {
-  hostname: 'localhost',
+  hostname: 'EXTERNAL_IP',
   port: 1026,
   path: '/v2/entities/urn:ngsi-ld:Sensor:123/attrs/value/value',
   method: 'PUT',

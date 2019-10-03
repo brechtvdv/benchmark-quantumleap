@@ -64,7 +64,7 @@ cd ..
 
 Go to <KUBERNETES_IP>:4200 and run query with the content from `test_data`.
 
-You can test if everything works by going to `http://KUBERNETES_IP:8668/v2/entities/lora.343233384C377A18`
+You can test if everything works by going to `http://KUBERNETES_IP:8668/v2/entities/urn:ngsi-ld:Sensor:123`
 
 ## Start client deployment that runs time series queries
 
@@ -85,4 +85,11 @@ curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
 sudo apt-get install nodejs
 
 node setup_ingest.js
+```
+
+## Check amount of requests on server
+
+```
+sudo apt-get install httpry
+sudo httpry -i cni0 -s
 ```
