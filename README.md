@@ -24,13 +24,17 @@ cd metrics-server/
 
 ```
 vi deploy/1.8+/metrics-server-deployment.yaml
-#Add following lines under image:
-# command:
-#     - /metrics-server
-#     - --metric-resolution=30s
-#     - --kubelet-insecure-tls
-#     - --kubelet-preferred-address-types=InternalIP
 ```
+
+Add following lines under image:
+```
+command:
+- /metrics-server
+- --metric-resolution=30s
+- --kubelet-insecure-tls
+- --kubelet-preferred-address-types=InternalIP
+```
+
 Deploy
 ```
 kubectl apply -f deploy/1.8+/
@@ -43,12 +47,16 @@ kubectl get po -n kube-system |grep metrics
 
 Check 
 ```
-kubectl top pod --all-namespaces
+kubectl top pod
 ```
 
 ## Add table in CrateDB by creating subscription in Orion
 
+When testing locally, change the hostname of the notification url inside `setup_subscription.sh` to the value of the environment variable `QUANTUMLEAP_SERVICE_HOST`, because Orion cannot connect to Quantumleap through localhost. You can retrieve this value by going inside a running docker container and run `printenv`.
+
+Then run:
 ```
+cd ..
 ./setup_subscription.sh
 ```
 
@@ -56,7 +64,7 @@ kubectl top pod --all-namespaces
 
 Go to <KUBERNETES_IP>:4200 and run query with the content from `test_data`.
 
-You can test if everything works by going to `http://localhost:8668/v2/entities/lora.343233384C377A18`
+You can test if everything works by going to `http://KUBERNETES_IP:8668/v2/entities/lora.343233384C377A18`
 
 ## Start client deployment that runs time series queries
 
@@ -67,4 +75,14 @@ kubectl create -f ./setup_client.yaml
 Scale up the client deployments
 ```
  kubectl scale deployment/client --replicas=10
+```
+
+## Ingest new data
+
+```
+sudo apt-get install curl software-properties-common
+curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
+sudo apt-get install nodejs
+
+node setup_ingest.js
 ```
