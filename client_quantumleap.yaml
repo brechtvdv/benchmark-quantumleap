@@ -17,6 +17,15 @@ spec:
        containers:
        - name: client
          image: gitlab.ilabt.imec.be:4567/brvdvyve/ngsi-client-benchmark
+         env:
+         - name: METHOD # latest or avg
+           value: "latest"
+         - name: AGGRPERIOD # year, month, day, hour, minute, second
+           value: "day"
+         - name: FROMDATE
+           value: "2018-01-05T15:44:34"
+         - name: TODATE
+           value: "2020-03-05T15:44:34"
          # resources:
          #  requests:
          #    memory: "35Mi"

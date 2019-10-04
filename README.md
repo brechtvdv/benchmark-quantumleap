@@ -69,7 +69,7 @@ You can test if everything works by going to `http://KUBERNETES_IP:8668/v2/entit
 ## Start client deployment that runs time series queries
 
 ```
-kubectl create -f ./setup_client.yaml
+kubectl create -f ./client_quantumleap.yaml
 ```
 
 Scale up the client deployments
