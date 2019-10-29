@@ -6,14 +6,14 @@ function do_request() {
 		const options = {
 		  hostname: 'EXTERNAL_IP',
 		  port: 8668,
-		  path: '/v2/entities/urn:ngsi-ld:Sensor:123?limit=10000',
+		  path: '/v2/entities/urn:ngsi-ld:Sensor:123?lastN=100',
 		  method: 'GET'
 		}
 	} else {
 		const options = {
 		  hostname: 'EXTERNAL_IP',
 		  port: 8668,
-		  path: '/v2/entities/urn:ngsi-ld:Sensor:123?aggrMethod=$METHOD&aggrPeriod=$AGGRPERIOD&fromDate=$FROMDATE&toDate=$TODATE&limit=10000 ',
+		  path: '/v2/entities/urn:ngsi-ld:Sensor:123?aggrMethod=$METHOD&aggrPeriod=$AGGRPERIOD&fromDate=$FROMDATE&toDate=$TODATE ',
 		  method: 'GET'
 		}
 	}	
