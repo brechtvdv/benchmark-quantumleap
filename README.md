@@ -84,8 +84,22 @@ sudo apt-get install curl software-properties-common
 curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
 sudo apt-get install nodejs
 
+screen
 node setup_ingest.js
 ```
+
+press CTRL+A+D to exit
+
+## Benchmark client
+
+```
+screen
+METHOD='latest' AGGRPERIOD='day' FROMDATE='2018-01-05T15:44:34' TODATE='2020-03-05T15:44:34' node benchmark_client.js
+```
+
+This will output the response time.
+
+press CTRL+A+D to exit
 
 ## Check amount of requests on server
 

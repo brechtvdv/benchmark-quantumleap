@@ -4,7 +4,7 @@ const https = require('http')
 function do_request() {
 	console.log("start request");
 
-	const data = '80';
+	const data = "'" + Math.random() + "'";
 
 	const options = {
 	  hostname: 'EXTERNAL_IP',
@@ -43,4 +43,4 @@ function sleep(time, callback) {
     callback();
 }
 
-sleep(1000, do_request);
+setInterval(do_request, 1000);
