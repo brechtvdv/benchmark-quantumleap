@@ -36,7 +36,6 @@ curl -X POST \
   -H 'Accept-Encoding: gzip, deflate' \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
-  -H 'Content-Length: 222' \
   -H 'Content-Type: application/json' \
   -H 'Host: EXTERNAL_IP:1026' \
   -H 'cache-control: no-cache' \
