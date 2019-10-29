@@ -4,7 +4,7 @@ const https = require('http')
 function do_request() {
 	console.log("start request");
 
-	const data = "'" + Math.random() + "'";
+	const data = Math.random();
 
 	const options = {
 	  hostname: 'EXTERNAL_IP',
@@ -13,7 +13,7 @@ function do_request() {
 	  method: 'PUT',
 	   headers: {
 	    'Content-Type': 'text/plain',
-	    'Content-Length': data.length
+	    'Content-Length': data.toString().length
 	  }
 	}
 
@@ -30,7 +30,7 @@ function do_request() {
 	req.on('error', error => {
 	  console.error(error)
 	})
-	req.write(data)
+	req.write(data.toString())
 
 	req.end();
 }
