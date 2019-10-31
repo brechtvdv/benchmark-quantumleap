@@ -43,5 +43,5 @@ curl -X POST \
       "id":"urn:ngsi-ld:Sensor:123", "type":"Sensor",
       "location":{"type":"Text", "value":"u155krxyc78z"},
       "time_index":{"type":"date", "value": 1568369594485},
-      "value":{"type":"float", "value": 99.20}
+      "value":{"type":"Number", "value": 99.20}
 }'
