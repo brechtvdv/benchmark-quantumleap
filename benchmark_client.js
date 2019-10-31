@@ -2,18 +2,25 @@ const https = require('http')
 
 
 function do_request() {
-	if (process.env.METHOD === 'latest') {
-		const options = {
+	let options;
+
+	if (process.env.METHOD && process.env.METHOD === 'latest') {
+		options = {
 		  hostname: 'EXTERNAL_IP',
 		  port: 8668,
 		  path: '/v2/entities/urn:ngsi-ld:Sensor:123?lastN=100',
 		  method: 'GET'
 		}
 	} else {
-		const options = {
+		const aggrMethod = process.env.METHOD || 'avg';
+		const aggrPeriod = process.env.AGGRPERIOD || 'minute';
+		const fromDate = process.env.FROMDATE || '2018-01-05T15:44:34';
+		const toDate = process.env.TODATE || '2020-01-05T15:44:34';
+
+		options = {
 		  hostname: 'EXTERNAL_IP',
 		  port: 8668,
-		  path: '/v2/entities/urn:ngsi-ld:Sensor:123?aggrMethod=$METHOD&aggrPeriod=$AGGRPERIOD&fromDate=$FROMDATE&toDate=$TODATE ',
+		  path: '/v2/entities/urn:ngsi-ld:Sensor:123?attrs=value&aggrMethod=' + aggrMethod + '&aggrPeriod=' + aggrPeriod + '&fromDate=' + fromDate + '&toDate=' + toDate,
 		  method: 'GET'
 		}
 	}	
@@ -21,19 +28,18 @@ function do_request() {
 	const start = new Date()
 	const req = https.request(options, res => {
       const end = new Date() - start;
-      console.info('Execution time: %dms', end)
+      console.info('%d', end)
 	  
 	  // console.log(`statusCode: ${res.statusCode}`)
 
 	  res.on('data', d => {
-	    process.stdout.write(d)
+	    // process.stdout.write(d)
 	  })
 	})
 
 	req.on('error', error => {
 	  console.error(error)
 	})
-	req.write(data)
 
 	req.end();
 }
