@@ -24,7 +24,7 @@ spec:
       - env:
         - name: CRATE_HOST
           value: crate-db
-        image: smartsdk/quantumleap:0.6.1
+        image: smartsdk/quantumleap:0.7.5
         # livenessProbe:
         #   exec:
         #     command:
