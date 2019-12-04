@@ -24,7 +24,7 @@ server {
       proxy_set_header Connection ""; # Enable keepalives
       proxy_set_header Accept-Encoding ""; # Optimize encoding
       proxy_set_header Host $host:$server_port;
-      proxy_hide_header Cache-Control;
+      # proxy_hide_header Cache-Control;
       add_header X-Cache-Status $upstream_cache_status;
       
       proxy_pass http://SERVER_SERVICE_HOST:1111/;
