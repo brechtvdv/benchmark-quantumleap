@@ -16,16 +16,20 @@ spec:
      spec:
        containers:
        - name: client
-         image: gitlab.ilabt.imec.be:4567/brvdvyve/ngsi-client-benchmark
+         image: gitlab.ilabt.imec.be:4567/brvdvyve/ngsi-vs-fragments-client
          env:
-         - name: METHOD # latest or avg
+         - name: METHOD # latest or aggregation method (average, median)
            value: "latest"
+         - name: API
+           value: "fragments" # fragments or ngsi
+         - name: PORT
+           value: "1234" # 5000: fragments API, 1234: NGINX proxy to fragments, 4300 QuantumLeap
          - name: AGGRPERIOD # year, month, day, hour, minute, second
-           value: "day"
-         - name: FROMDATE
-           value: "2018-01-05T15:44:34"
-         - name: TODATE
-           value: "2020-03-05T15:44:34"
+           value: "minute"
+         # - name: FROMDATE
+         #   value: "2019-01-05T15:44:34"
+         # - name: TODATE
+         #   value: "2019-03-05T15:44:34"
          # resources:
          #  requests:
          #    memory: "35Mi"

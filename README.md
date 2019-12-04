@@ -15,6 +15,12 @@ chmod +x *.sh
 ./setup_ngsi.sh
 ```
 
+## Setup LDF on top of crateDB
+
+```
+kubectl create -f ./fragments-deployment.yaml
+```
+
 ## Setup metrics server
 
 ```
@@ -69,7 +75,7 @@ You can test if everything works by going to `http://KUBERNETES_IP:8668/v2/entit
 ## Start client deployment that runs time series queries
 
 ```
-kubectl create -f ./client_quantumleap.yaml
+kubectl create -f ./ngsi-vs-fragments-client.yaml
 ```
 
 Scale up the client deployments

@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Service
+metadata:
+   name: server
+   labels:
+     app: server
+spec:
+   ports:
+   - port: 5000
+     targetPort: 5000
+     name: server
+   - port: 1234
+     targetPort: 80
+     name: nginx
+   type: LoadBalancer
+   externalIPs:
+
+   selector:
+     app: server
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: server
+   labels:
+      app: server
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+        app: server
+   template:
+     metadata:
+       labels:
+         app: server
+     spec:
+       volumes:
+       - name: run-nginx
+         configMap:
+           name: run-nginx
+           defaultMode: 0777
+       containers:
+       - name: server
+         image: gitlab.ilabt.imec.be:4567/brvdvyve/cratedb2fragments:latest
+         ports:
+         - containerPort: 5000
+         env:
+         - name: PORT
+           value: "5000"
+         resources:
+          requests:
+            memory: "500Mi"
+            cpu: "0.5"
+       - name: nginx
+         image: nginx
+         ports:
+         - containerPort: 80
+         # resources:
+         #    requests:
+         #      memory: "500Mi"
+         #      cpu: "0.5" # Make this bigger when benchmarking, e.g. 8
+         volumeMounts:
+         - mountPath: /etc/nginx/run_nginx.sh
+           name: run-nginx
+           readOnly: false
+           subPath: run_nginx.sh
+         lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "/etc/nginx/run_nginx.sh"]
