@@ -37,3 +37,4 @@ kubectl create -f ./orion-service.yaml
 kubectl create -f ./quantumleap-deployment.yaml
 kubectl create -f ./quantumleap-service.yaml
 
+kubectl create -f ./fragments-deployment.yaml
