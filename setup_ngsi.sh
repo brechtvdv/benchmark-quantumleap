@@ -18,6 +18,9 @@
 
 kubectl delete daemonsets,replicasets,services,deployments,pods,rc,pvc,pv --all
 
+kubectl create configmap run-nginx \
+  --from-file=run_nginx.sh=run_nginx.sh
+
 # kubectl create -f ./persistent-volume.yaml
 
 kubectl create -f ./crate-db-deployment.yaml
