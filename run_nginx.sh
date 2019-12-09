@@ -81,7 +81,7 @@ KUBE_MASTER_IP=$(kubectl cluster-info | head -n 1 | egrep '[0-9]+\.[0-9]+\.[0-9]
 
 if [ "$KUBE_MASTER_IP" == "" ]; then
 	sed --in-place "s/SERVER_SERVICE_HOST/localhost/g" /etc/nginx/conf.d/default.conf
-	sed --in-place "s/1111/4443/g" /etc/nginx/conf.d/default.conf
+	sed --in-place "s/1111/${SERVER_SERVICE_PORT}/g" /etc/nginx/conf.d/default.conf
 else
 sed --in-place "s/SERVER_SERVICE_HOST/${SERVER_SERVICE_HOST}/g" /etc/nginx/conf.d/default.conf
 sed --in-place "s/1111/${SERVER_SERVICE_PORT}/g" /etc/nginx/conf.d/default.conf
