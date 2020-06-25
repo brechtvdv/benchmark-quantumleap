@@ -36,11 +36,31 @@ Add following lines under image:
 ```
 command:
 - /metrics-server
-- --metric-resolution=30s
+- --metric-resolution=10s
 - --kubelet-insecure-tls
 - --kubelet-preferred-address-types=InternalIP
 ```
 
+When error with connectivity between nodes:
+```
+kubectl -n kube-system apply -f https://git.io/weave-kube-1.6
+```
+
+Failed create pod sandbox:
+```
+kubectl -n kube-system apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+```
+
+For ARM64 (or aarch64) architecture (don't forget to set kubernetes.io/arch to arm64):
+```
+ image: k8s.gcr.io/metrics-server-arm64:v0.3.6
+        args:
+          - --kubelet-preferred-address-types=InternalIP
+          - --metric-resolution=20s
+          - --kubelet-insecure-tls
+          - --cert-dir=/tmp
+          - --secure-port=4443
+```
 Deploy
 ```
 kubectl apply -f deploy/1.8+/
@@ -58,7 +78,7 @@ kubectl top pod
 
 ## Add table in CrateDB by creating subscription in Orion
 
-When testing locally, change the hostname of the notification url inside `setup_subscription.sh` to the value of the environment variable `QUANTUMLEAP_SERVICE_HOST`, because Orion cannot connect to Quantumleap through localhost. You can retrieve this value by going inside a running docker container and run `printenv`.
+When testing locally, change the hostname of the notification url inside `setup_subscription.sh` to the value of the environment variable `QUANTUMLEAP_SERVICE_HOST`, because Orion cannot connect to Quantumleap through localhost. You can retrieve this value by going inside a running docker container and run `printenv | grep QUANTUMLEAP_SERVICE_HOST`.
 
 Then run:
 ```
