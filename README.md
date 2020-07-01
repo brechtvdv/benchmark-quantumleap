@@ -1,5 +1,15 @@
 # benchmark-quantumleap
 
+This repository provides scripts to deploy and compare a Fiware Quantumleap (QL) API with a Linked Data Fragments (LDF) API for timeseries on a Kubernetes cluster. The NGSIv2 Orion context broker is deployed for ingesting new data. CrateDB is used for persisting the data and allowing spatial-temporal queries through a [QL API](https://github.com/smartsdk/ngsi-timeseries-api). The [LDF API](https://gitlab.ilabt.imec.be/brvdvyve/cratedb2fragments) also runs on top of the CrateDB and fragments the data per day by default.
+
+A [HTTP client](https://gitlab.ilabt.imec.be/brvdvyve/ngsi-vs-fragments-client) is provided that can be configured to use the QL or LDF API and supports 4 scenarios:
+1) Retrieving the latest data
+2) Retrieving all data from a certain date up untill now (open interval - historical + realtime data)
+3) Retrieving all data from a certain date up untill another datetime in the past (closed interval - only historical data)
+4) Same as 3) + aggregation per hour
+
+Following commands need to be run on the master node of a Kubernetes cluster to deploy everything:
+
 ## Git clone this repository
 
 ```
@@ -71,7 +81,7 @@ Verify (takes one minute)
 kubectl get po -n kube-system |grep metrics
 ```
 
-Check 
+With following command, you can check the CPU and memory performance of the server and clients:
 ```
 kubectl top pod
 ```
@@ -89,16 +99,19 @@ cd ..
 ## Load data in CrateDB
 
 Go to <KUBERNETES_IP>:4200 and run query with the content from `test_data`.
+You can create a new test dataset by configuring and running `node create_test_data.js`.
 
 You can test if everything works by going to `http://KUBERNETES_IP:8668/v2/entities/urn:ngsi-ld:Sensor:123`
 
 ## Start client deployment that runs time series queries
 
+Configure the client inside `ngsi-vs-fragments-client.yaml` (API, PORT, AGGRPERIOD, FROMDATE and TODATE).
+
 ```
 kubectl create -f ./ngsi-vs-fragments-client.yaml
 ```
 
-Scale up the client deployments
+Scale up the client deployments (now we're benchmarking)
 ```
  kubectl scale deployment/client --replicas=10
 ```
@@ -113,17 +126,6 @@ sudo apt-get install nodejs
 screen
 node setup_ingest.js
 ```
-
-press CTRL+A+D to exit
-
-## Benchmark client
-
-```
-screen
-METHOD='latest' AGGRPERIOD='day' FROMDATE='2018-01-05T15:44:34' TODATE='2020-03-05T15:44:34' node benchmark_client.js
-```
-
-This will output the response time.
 
 press CTRL+A+D to exit
 
